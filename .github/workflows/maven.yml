@@ -1,0 +1,43 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-16.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+     
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4
+      with:
+        maven-version: 3.5.4
+    
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    
+    - name: Generating .war file 
+      run: mkdir staging && cp target/*.war staging
+      
+    - name: Publishing Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Package
+        path: staging
+    
+    
