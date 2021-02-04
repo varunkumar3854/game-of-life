@@ -30,9 +30,6 @@ jobs:
     
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    
-    - name: Generating .war file 
-      run: mkdir staging && cp target/*.war staging
       
     - name: Publishing Artifact
       uses: actions/upload-artifact@v2
