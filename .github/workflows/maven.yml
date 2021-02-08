@@ -49,7 +49,7 @@ jobs:
     - name: Download Build Artifact
       uses: actions/download-artifact@v2
       with:
-        name: Package
+        name: target
         path: ${{github.workspace}}
     
     - name: Azure WebApp Deploy
