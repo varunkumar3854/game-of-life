@@ -38,7 +38,7 @@ jobs:
     - name: Publishing Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: Package
+        name: target
         path: ${{github.workspace}}
         
   deploy:
