@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  WEB_APP_NAME: narayanagithubwebapp
+
 jobs:
   build:
 
@@ -36,5 +39,20 @@ jobs:
       with:
         name: Package
         path: ${{github.workspace}}
+        
+  deploy:
+    name: DEPLOY TO AZURE WEB APP
+    runs-on: ubuntu-16.04
+    needs: [build]
+    steps:
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: drop
+        path: ${{github.workspace}}
     
-    
+    - name: Azure WebApp Deploy
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ${{env.WEB_APP_NAME}}
+        publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
