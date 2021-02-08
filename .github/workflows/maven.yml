@@ -11,7 +11,7 @@ on:
 
 env:
   WEB_APP_NAME: narayanagithubwebapp
-  AZURE_WEBAPP_PACKAGE_PATH: ${{ github.workspace }}
+  AZURE_WEBAPP_PACKAGE_PATH: ${{github.workspace}}/game-of-life/game-of-life/
 
 jobs:
   build:
@@ -57,8 +57,7 @@ jobs:
       with:
         app-name: ${{env.WEB_APP_NAME}}
         publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
-        package: '${{github.workspace}}'
-        
+        package: '${{env.AZURE_WEBAPP_PACKAGE_PATH}}/target/*.war'
         
         
     
