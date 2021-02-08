@@ -58,9 +58,6 @@ jobs:
         app-name: ${{env.WEB_APP_NAME}}
         publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
         package: ${{github.workspace}}/gameoflife-web/target/gameoflife.war
-    
-    - name: Lint all YAML files in the directory
-      uses: ibiqlik/action-yamllint@master
               
     - name: Run JMeter Tests
       uses: ./
