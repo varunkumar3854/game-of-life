@@ -57,7 +57,7 @@ jobs:
       with:
         app-name: ${{env.WEB_APP_NAME}}
         publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
-        package: '${{github.workspace}}/target/*.war'
+        package: '${{github.workspace}}/game-of-life/game-of-life/target/*.war'
         
         
         
