@@ -64,3 +64,13 @@ jobs:
       with:
         testFilePath: gameoflife-web/src/test/jmeter/gameoflife.jmx
         outputReportsFolder: reports/
+    
+    - name: Upload Jmeter Tests
+      uses: actions/upload-artifact@v1
+      with:
+        name: jmeter-test-results
+        path: reports/
+        
+        
+        
+        
