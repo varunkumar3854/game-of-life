@@ -60,7 +60,7 @@ jobs:
         package: ${{github.workspace}}/gameoflife-web/target/gameoflife.war
               
     - name: Run JMeter Tests
-      uses: ./
+      uses: rbhadti94/apache-jmeter-action@v0.3.1
       with:
         testFilePath: gameoflife-web/src/test/jmeter/**.jmx
         outputReportsFolder: reports/
