@@ -64,4 +64,3 @@ jobs:
       with:
         testFilePath: gameoflife-web/src/test/jmeter/**.jmx
         outputReportsFolder: reports/
-        args: "--loglevel INFO"
