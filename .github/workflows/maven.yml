@@ -62,8 +62,9 @@ jobs:
     - name: Run JMeter Tests
       uses: rbhadti94/apache-jmeter-action@v0.3.1
       with:
-        testFilePath: gameoflife-web/tools/jmeter/printable_docs/demos/**.jmx
+        testFilePath: gameoflife-web/src/test/jmeter/gameoflife.jmx
         outputReportsFolder: reports/
+        args: "--loglevel INFO -JMyProperty=Value --jmeterlogconf=log.conf"
     
     - name: Upload Jmeter Tests
       uses: actions/upload-artifact@v1
