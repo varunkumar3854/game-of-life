@@ -57,7 +57,7 @@ jobs:
       with:
         app-name: ${{env.WEB_APP_NAME}}
         publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
-        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/target/*.war'
+        package: '${{github.workspace}}/target/*.war'
         
         
         
