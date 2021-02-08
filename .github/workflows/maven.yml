@@ -62,7 +62,7 @@ jobs:
     - name: Run JMeter Tests
       uses: rbhadti94/apache-jmeter-action@v0.3.1
       with:
-        testFilePath: gameoflife-web/src/test/jmeter/**.jmx
+        testFilePath: gameoflife-web/src/test/jmeter/gameoflife.jmx
         outputReportsFolder: reports/
     
     - name: Upload Jmeter Tests
