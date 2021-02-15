@@ -1,0 +1,77 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  WEB_APP_NAME: narayanagithubwebapp
+  AZURE_WEBAPP_PACKAGE_PATH: ${{github.workspace}}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-16.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+     
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 8
+    
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v4
+      with:
+        maven-version: 3.5.4
+    
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+      
+    - name: Publishing Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: target
+        path: ${{github.workspace}}
+        
+  deploy:
+    name: DEPLOY TO AZURE WEB APP
+    runs-on: ubuntu-16.04
+    needs: [build]
+    steps:
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: target
+        path: ${{github.workspace}}
+    
+    - name: Azure WebApp Deploy
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: ${{env.WEB_APP_NAME}}
+        publish-profile: ${{secrets.WEB_APP_PUBLISH_PROFILE}}
+        package: ${{github.workspace}}/gameoflife-web/target/gameoflife.war
+              
+    - name: Run JMeter Tests
+      uses: rbhadti94/apache-jmeter-action@v0.3.1
+      with:
+        testFilePath: gameoflife-web/src/test/jmeter/gameoflife.jmx
+        outputReportsFolder: reports/
+        args: "--loglevel INFO -JMyProperty=Value --jmeterlogconf=log.conf"
+    
+    - name: Upload Jmeter Tests
+      uses: actions/upload-artifact@v1
+      with:
+        name: jmeter-test-results
+        path: reports/
+        
+        
+        
+        
